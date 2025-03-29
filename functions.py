@@ -51,12 +51,12 @@ sample = {'Body Type': 2,
 
 def input_preprocessing(data):
     data["Body Type"] = data["Body Type"].map({'underweight':0, 'normal':1, 'overweight':2, 'obese':3})
-    data["Sex"] = data["Sex"].map({'female':0, 'male':1})
+    data["Sex"] = data["Sex"].map({'female':0, 'male':1, 'transgender':2})
     data = pd.get_dummies(data, columns=["Diet","Heating Energy Source","Transport","Vehicle Type"], dtype=int)
     data["How Often Shower"] = data["How Often Shower"].map({'less frequently':0, 'daily':1, "twice a day":2, "more frequently":3})
     data["Social Activity"] = data["Social Activity"].map({'never':0, 'sometimes':1, "often":2})
     data["Frequency of Traveling by Air"] = data["Frequency of Traveling by Air"].map({'never':0, 'rarely':1, "frequently":2, "very frequently":3})
-    data["Waste Bag Size"] = data["Waste Bag Size"].map({'small':0, 'medium':1, "large":2,  "extra large":3})
+    data["Waste Bag Size"] = data["Waste Bag Size"].map({'below 2kg':0, 'below 5kg':1, "below 10kg":2,  "below 20kg":3})
     data["Energy efficiency"] = data["Energy efficiency"].map({'No':0, 'Sometimes':1, "Yes":2})
     return data
 def hesapla(model,ss, sample_df):

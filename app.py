@@ -55,12 +55,13 @@ def component():
     body_type = "underweight" if (calculation < 18.5) else \
                  "normal" if ((calculation >=18.5) and (calculation < 25 )) else \
                  "overweight" if ((calculation >= 25) and (calculation < 30)) else "obese"
-    sex = tab1.selectbox('Gender', ["female", "male"])
+    sex = tab1.selectbox('Gender', ["female", "male","transgender"])
     diet = tab1.selectbox('Diet', ['omnivore', 'pescatarian', 'vegetarian', 'vegan'], help="""
-                                                                                              Omnivore: Eats both plants and animals.\n
+                                                                                              omnivore(Non-Vegetarian): Eats both plants and animals.\n
                                                                                               Pescatarian: Consumes plants and seafood, but no other meat\n
                                                                                               Vegetarian: Diet excludes meat but includes plant-based foods.\n
                                                                                               Vegan: Avoids all animal products, including meat, dairy, and eggs.""")
+    
     social = tab1.selectbox('Social Activity', ['never', 'often', 'sometimes'], help="How often do you go out?")
 
     transport = tab2.selectbox('Transportation', ['public', 'private', 'walk/bicycle'],
@@ -82,20 +83,20 @@ def component():
                                                                                                                              Frequently: Around 5 - 10 Hours.\n
                                                                                                                              Very Frequently: Around 10+ Hours. """)
 
-    waste_bag = tab3.selectbox('What is the size of your waste bag?', ['small', 'medium', 'large', 'extra large'])
+    waste_bag = tab3.selectbox('What is the size of your waste bag?', ['below 2kg', 'below 5kg', 'below 10kg', 'below 20kg'])
     waste_count = tab3.slider('How many waste bags do you trash out in a week?', 0, 10, 0)
     recycle = tab3.multiselect('Do you recycle any materials below?', ['Plastic', 'Paper', 'Metal', 'Glass'])
 
     heating_energy = tab4.selectbox('What power source do you use for heating?', ['natural gas', 'electricity', 'wood', 'coal'])
 
-    for_cooking = tab4.multiselect('What cooking systems do you use?', ['microwave', 'oven', 'grill', 'airfryer', 'stove'])
+    for_cooking = tab4.multiselect('What cooking systems do you use?', ['microwave', 'oven', 'grinder', 'induction', 'stove'])
     energy_efficiency = tab4.selectbox('Do you consider the energy efficiency of electronic devices?', ['No', 'Yes', 'Sometimes' ])
     daily_tv_pc = tab4.slider('How many hours a day do you spend in front of your PC/TV?', 0, 24, 0)
     internet_daily = tab4.slider('What is your daily internet usage in hours?', 0, 24, 0)
 
     shower = tab5.selectbox('How often do you take a shower?', ['daily', 'twice a day', 'more frequently', 'less frequently'])
-    grocery_bill = tab5.slider('Monthly grocery spending in $', 0, 500, 0)
-    clothes_monthly = tab5.slider('How many clothes do you buy monthly?', 0, 30, 0)
+    grocery_bill = tab5.slider('Monthly grocery spending in ₹', 0, 30000, 0)
+    clothes_monthly = tab5.slider('How many clothes do you buy yearly?', 0, 60, 0)
 
     data = {'Body Type': body_type,
             "Sex": sex,
@@ -164,8 +165,5 @@ tab_result.markdown(f"""You owe nature <b>{tree_count}</b> tree{'s' if tree_coun
 if resultmid.button("  ", type="secondary"):
     click_element('tab-1')
 
-with open("./style/footer.html", "r", encoding="utf-8") as footer:
-    footer_html = f"""{footer.read()}"""
-    st.markdown(footer_html, unsafe_allow_html=True)
 
 script()
